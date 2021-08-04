@@ -25,17 +25,28 @@ const messageselector = (random_n, arrin) =>{
     
 }
 
-const composing_messages = () => {
-    let beginning_msg = messageselector(randomnumgen(messages.beginning_quotes), messages.beginning_quotes)
-    let insp_msg = messageselector(randomnumgen(messages.inspirational_quotes), messages.inspirational_quotes)
-    let ending_msg = messageselector(randomnumgen(messages.ending_quotes), messages.ending_quotes)
-    return ("Hey, how have you been?" +"\n\n"+ beginning_msg + "\n\n" + insp_msg + "\n\n" + ending_msg)
+
+const composing_messages = (obj_in) => {
+    let message_arr = []
+    for (i=0; i<Object.keys(obj_in).length;i++){
+        let idx = Object.keys(obj_in)[randomnumgen(Object.keys(obj_in))]
+        let element = messageselector(randomnumgen(obj_in[idx]), obj_in[idx])
+        if ((message_arr.indexOf(element)<i) && message_arr.indexOf(element)>=0){
+            i -= 1
+            break
+        }
+        message_arr.push(element);
+    }
+    return message_arr.join("\n\n")
+
 }
 
 const display_messages = strIn => {
     console.log("*".repeat(72))
+    console.log("Hey! How are you doing? :) ")
     console.log(strIn)
+    console.log("Wishing you a day filled with happiness and joy!")
     console.log("*".repeat(72))
 }
 
-display_messages(composing_messages());
+display_messages(composing_messages(messages));
