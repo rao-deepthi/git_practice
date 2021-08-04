@@ -28,14 +28,18 @@ const messageselector = (random_n, arrin) =>{
 
 const composing_messages = (obj_in) => {
     let message_arr = []
-    for (i=0; i<Object.keys(obj_in).length;i++){
+    let idx_arr = []
+    while (message_arr.length != Object.keys(obj_in).length){
         let idx = Object.keys(obj_in)[randomnumgen(Object.keys(obj_in))]
-        let element = messageselector(randomnumgen(obj_in[idx]), obj_in[idx])
-        if ((message_arr.indexOf(element)<i) && message_arr.indexOf(element)>=0){
-            i -= 1
-            break
+        if ((idx_arr.indexOf(idx)<=(idx_arr.length-1)) && idx_arr.indexOf(idx)>=0){
+            continue
         }
-        message_arr.push(element);
+        idx_arr.push(idx)
+        // let element = messageselector(randomnumgen(obj_in[idx]), obj_in[idx])
+        // if ((message_arr.indexOf(element)<i) && message_arr.indexOf(element)>=0){
+        //     break
+        // }
+        message_arr.push(messageselector(randomnumgen(obj_in[idx]), obj_in[idx]));
     }
     return message_arr.join("\n\n")
 
